@@ -1,0 +1,3 @@
+rootProject.name = 'SandBoxProj'
+
+include ':app'
