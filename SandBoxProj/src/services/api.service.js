@@ -13,7 +13,7 @@ let ApiService = class ApiService
 
     getData()
     {
-        return `${this.apiLocation}films/`
+        return `${this.apiLocation}`
     }
 
     //searches for titles of films.
