@@ -112,7 +112,7 @@ export default class MovieSearch extends Component {
 
     onChange(val)
     {
-        if (val == "")
+        if (val != "")
         {
             this._getSearches(val);
         }
