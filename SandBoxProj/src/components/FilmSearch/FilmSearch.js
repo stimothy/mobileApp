@@ -131,13 +131,13 @@ export default class MovieSearch extends Component {
             <FlatList
                 data={this.state.data}
                 extraData={this.state}
-                keyExtractor={(item, index) => item.id.toString()}
+                keyExtractor={(item, index) => item.name.toString()}
                 renderItem={(this._renderItem)}
             >
             </FlatList>
         );
     }
-    
+
 
     _renderItem = ({item}) => {
         return (
@@ -147,7 +147,7 @@ export default class MovieSearch extends Component {
                 onPress={() => {/*this.onSubmit(item.title)}*/}
             >
                 <Text>
-                    {item.title}
+                    {item.name}
                 </Text>
             </CardItem>
         );

@@ -76,7 +76,7 @@ export default class MovieSearch extends Component {
 
     _getList(url)
     {
-        starwarsService.getMovieList(url)
+        starwarsService.getPersonList(url)
         .then(results => {
             if (results.length != 0)
             {
@@ -96,7 +96,7 @@ export default class MovieSearch extends Component {
 
     _getSearches(term)
     {
-        starwarsService.searchFilms(term)
+        starwarsService.searchPersons(term)
         .then(results => {
             this.setState(prevState => {
                 return {
@@ -112,7 +112,7 @@ export default class MovieSearch extends Component {
 
     onChange(val)
     {
-        if (val == "")
+        if (val != "")
         {
             this._getSearches(val);
         }
