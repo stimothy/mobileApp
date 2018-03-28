@@ -16,15 +16,19 @@ let MovieService = class MovieService {
 	constructor() {
     }
     
-    getRoot() {
+    /* GET the main page */
+    getData() {
         return new Promise((resolve, reject) => {
             fetch(apiService.getData())
             .then((response) => response.json())
             .then((responseJson) => {
                 let items = [];
-                responseJson.results.forEach(element => {
-                    items.push(element);
-                });
+                items.push(responseJson['films']);
+                items.push(responseJson['people']);
+                items.push(responseJson['planets']);
+                items.push(responseJson['species']);
+                items.push(responseJson['starships']);
+                items.push(responseJson['vehicles']);
                 resolve(items);
             })
             .catch((error) => {
@@ -34,7 +38,7 @@ let MovieService = class MovieService {
         });
     }
     
-
+    /* GET movie list */
     getMovieList(url) {
         return new Promise((resolve, reject) => {
             fetch(url)
@@ -42,7 +46,9 @@ let MovieService = class MovieService {
             .then((responseJson) => {
                 let items = [];
                 responseJson.results.forEach(element => {
-                    items.push(new Item(element.name, element.url));
+                    items.push(new Movie(element.title, element.episode_id, element.opening_crawl, 
+                        element.director, element.producer, element.release_date, 
+                        element.species, element.starships, element.vehicles, element.characters, element.planets, element.url));
                 });
                 resolve(items);
             })
@@ -53,14 +59,17 @@ let MovieService = class MovieService {
         });
     }
 
-    getMovie() {
+    /* SEARCH movie list */
+    searchFilms(term) {
         return new Promise((resolve, reject) => {
-            fetch(url)
+            fetch(apiService.searchFilms(term))
             .then((response) => response.json())
             .then((responseJson) => {
                 let items = [];
                 responseJson.results.forEach(element => {
-                    items.push(new Movie(element.title, element.episode_id, element.opening_crawl, element.release_date, element.url));
+                    items.push(new Movie(element.title, element.episode_id, element.opening_crawl, 
+                        element.director, element.producer, element.release_date, 
+                        element.species, element.starships, element.vehicles, element.characters, element.planets, element.url));
                 });
                 resolve(items);
             })
@@ -76,8 +85,10 @@ let MovieService = class MovieService {
             fetch(url)
             .then((response) => response.json())
             .then((responseJson) => {
-                
-                let item = new MovieComplete(element.title, element.episode_id, element.opening_crawl, element.release_date, element.characters, element.planets, element.starships, element.species);
+                let element = responseJson;
+                let item = new Movie(element.title, element.episode_id, element.opening_crawl, 
+                    element.director, element.producer, element.release_date, 
+                    element.species, element.starships, element.vehicles, element.characters, element.planets, element.url);
 
                 resolve(item);
             })
@@ -88,13 +99,16 @@ let MovieService = class MovieService {
         });
     }
     
+    /* GET person */
     getPerson(url) {
         return new Promise((resolve, reject) => {
             fetch(url)
             .then((response) => response.json())
             .then((responseJson) => {
-                
-                let item = new Person(element.name, element.height, element.birth_year);
+                let element = responseJson;
+                let item = new Person(element.name, element.birth_year, element.eye_color, element.gender, 
+                    element.hair_color, element.height, element.mass, element.skin_color, element.homeworld, 
+                    element.films, element.species, element.starships, element.vehicles, element.url);
 
                 resolve(item);
             })
@@ -105,6 +119,28 @@ let MovieService = class MovieService {
         });
     }
 
+    /* SEARCH person list */
+    searchPersons(term) {
+        return new Promise((resolve, reject) => {
+            fetch(apiService.searchPeople(term))
+            .then((response) => response.json())
+            .then((responseJson) => {
+                let items = [];
+                responseJson.results.forEach(element => {
+                    items.push(new Person(element.name, element.birth_year, element.eye_color, element.gender, 
+                        element.hair_color, element.height, element.mass, element.skin_color, element.homeworld, 
+                        element.films, element.species, element.starships, element.vehicles, element.url));
+                });
+                resolve(items);
+            })
+            .catch((error) => {
+                console.error(error);
+                reject(error);
+            });
+        });
+    }
+
+    /* GET person list */
     getPersonList(url) {
         return new Promise((resolve, reject) => {
             fetch(url)
@@ -112,7 +148,9 @@ let MovieService = class MovieService {
             .then((responseJson) => {
                 let items = [];
                 responseJson.results.forEach(element => {
-                    items.push(new Person(element.title, element.episode_id, element.opening_crawl, element.release_date, element.url));
+                    items.push(new Person(element.name, element.birth_year, element.eye_color, element.gender, 
+                        element.hair_color, element.height, element.mass, element.skin_color, element.homeworld, 
+                        element.films, element.species, element.starships, element.vehicles, element.url));
                 });
                 resolve(items);
             })
@@ -123,6 +161,7 @@ let MovieService = class MovieService {
         });
     }
 
+    /* GET planet list */
     getPlanetList(url) {
         return new Promise((resolve, reject) => {
             fetch(url)
@@ -130,7 +169,9 @@ let MovieService = class MovieService {
             .then((responseJson) => {
                 let items = [];
                 responseJson.results.forEach(element => {
-                    items.push(new Planet(element.title, element.episode_id, element.opening_crawl, element.release_date, element.url));
+                    items.push(new Planet(element.name, element.diameter, element.rotation_period, element.orbital_period, 
+                        element.gravity, element.population, element.climate, element.terrain, 
+                        element.surface_water, element.residents, element.films, element.url));
                 });
                 resolve(items);
             })
@@ -141,14 +182,38 @@ let MovieService = class MovieService {
         });
     }
 
+    /* SEARCH planet list */
+    searchPlanets(term) {
+        return new Promise((resolve, reject) => {
+            fetch(apiService.searchPlanets(term))
+            .then((response) => response.json())
+            .then((responseJson) => {
+                let items = [];
+                responseJson.results.forEach(element => {
+                    items.push(new Planet(element.name, element.diameter, element.rotation_period, element.orbital_period, 
+                        element.gravity, element.population, element.climate, element.terrain, 
+                        element.surface_water, element.residents, element.films, element.url));
+                });
+                resolve(items);
+            })
+            .catch((error) => {
+                console.error(error);
+                reject(error);
+            });
+        });
+    }
 
+    /* GET single planet */
     getPlanet(url) {
         return new Promise((resolve, reject) => {
             fetch(url)
             .then((response) => response.json())
             .then((responseJson) => {
-                
-                let item = new Person(element.name, element.height, element.birth_year);
+                let element = responseJson;
+
+                let item = new Planet(element.name, element.diameter, element.rotation_period, element.orbital_period, 
+                    element.gravity, element.population, element.climate, element.terrain, 
+                    element.surface_water, element.residents, element.films, element.url);
 
                 resolve(item);
             })
@@ -159,6 +224,7 @@ let MovieService = class MovieService {
         });
     }
 
+    /* GET species list */
     getSpeciesList(url) {
         return new Promise((resolve, reject) => {
             fetch(url)
@@ -166,7 +232,9 @@ let MovieService = class MovieService {
             .then((responseJson) => {
                 let items = [];
                 responseJson.results.forEach(element => {
-                    items.push(new Species(element.title, element.episode_id, element.opening_crawl, element.release_date, element.url));
+                    items.push(new Species(element.name, element.classification, element.designation, element.average_height, 
+                        element.average_lifespan, element.eye_colors, element.hair_colors, 
+                        element.skin_colors, element.language, element.homeworld, element.people, element.films, element.url));
                 });
                 resolve(items);
             })
@@ -177,13 +245,37 @@ let MovieService = class MovieService {
         });
     }
 
+    /* SEARCH species list */
+    searchSpecies(term) {
+        return new Promise((resolve, reject) => {
+            fetch(apiService.searchSpecies(term))
+            .then((response) => response.json())
+            .then((responseJson) => {
+                let items = [];
+                responseJson.results.forEach(element => {
+                    items.push(new Species(element.name, element.classification, element.designation, element.average_height, 
+                        element.average_lifespan, element.eye_colors, element.hair_colors, 
+                        element.skin_colors, element.language, element.homeworld, element.people, element.films, element.url));
+                });
+                resolve(items);
+            })
+            .catch((error) => {
+                console.error(error);
+                reject(error);
+            });
+        });
+    }
+
+    /* GET single species */
     getSpecies(url) {
         return new Promise((resolve, reject) => {
             fetch(url)
             .then((response) => response.json())
             .then((responseJson) => {
-                
-                let item = new Species(element.name, element.height, element.birth_year);
+                let element = responseJson;
+                let item = new Species(element.name, element.classification, element.designation, element.average_height, 
+                    element.average_lifespan, element.eye_colors, element.hair_colors, 
+                    element.skin_colors, element.language, element.homeworld, element.people, element.films, element.url);
 
                 resolve(item);
             })
@@ -194,6 +286,7 @@ let MovieService = class MovieService {
         });
     }
 
+    /* GET starship list */
     getStarshipList(url) {
         return new Promise((resolve, reject) => {
             fetch(url)
@@ -201,7 +294,9 @@ let MovieService = class MovieService {
             .then((responseJson) => {
                 let items = [];
                 responseJson.results.forEach(element => {
-                    items.push(new Starship(element.title, element.episode_id, element.opening_crawl, element.release_date, element.url));
+                    items.push(new Starship(element.name, element.model, element.starship_class, element.manufacturer, element.cost_in_credits, 
+                        element.length, element.crew, element.passengers, element.max_atmosphering_speed, element.hyperdrive_rating, 
+                        element.MGLT, element.cargo_capacity, element.consumables, element.films, element.pilots, element.url));
                 });
                 resolve(items);
             })
@@ -212,13 +307,37 @@ let MovieService = class MovieService {
         });
     }
 
+    /* SEARCH starship list */
+    searchStarships(term) {
+        return new Promise((resolve, reject) => {
+            fetch(apiService.searchStarships(term))
+            .then((response) => response.json())
+            .then((responseJson) => {
+                let items = [];
+                responseJson.results.forEach(element => {
+                    items.push(new Starship(element.name, element.model, element.starship_class, element.manufacturer, element.cost_in_credits, 
+                        element.length, element.crew, element.passengers, element.max_atmosphering_speed, element.hyperdrive_rating, 
+                        element.MGLT, element.cargo_capacity, element.consumables, element.films, element.pilots, element.url));
+                });
+                resolve(items);
+            })
+            .catch((error) => {
+                console.error(error);
+                reject(error);
+            });
+        });
+    }
+
+    /* GET single starship */
     getStarship(url) {
         return new Promise((resolve, reject) => {
             fetch(url)
             .then((response) => response.json())
             .then((responseJson) => {
-                
-                let item = new Starship(element.name, element.height, element.birth_year);
+                let element = responseJson;
+                let item = new Starship(element.name, element.model, element.starship_class, element.manufacturer, element.cost_in_credits, 
+                    element.length, element.crew, element.passengers, element.max_atmosphering_speed, element.hyperdrive_rating, 
+                    element.MGLT, element.cargo_capacity, element.consumables, element.films, element.pilots, element.url);
 
                 resolve(item);
             })
@@ -229,6 +348,7 @@ let MovieService = class MovieService {
         });
     }
 
+    /* GET vehicle list */
     getVehicleList(url) {
         return new Promise((resolve, reject) => {
             fetch(url)
@@ -236,7 +356,9 @@ let MovieService = class MovieService {
             .then((responseJson) => {
                 let items = [];
                 responseJson.results.forEach(element => {
-                    items.push(new Vehicle(element.title, element.episode_id, element.opening_crawl, element.release_date, element.url));
+                    items.push(new Vehicle(element.name, element.model, element.vehicle_class, element.manufacturer, 
+                        element.length, element.cost_in_credits, element.crew, element.passengers, element.max_atmosphering_speed, 
+                        element.cargo_capacity, element.consumables, element.films, element.pilots, element.url));
                 });
                 resolve(items);
             })
@@ -247,13 +369,37 @@ let MovieService = class MovieService {
         });
     }
 
+    /* SEARCH vehicle list */
+    getVehicleList(term) {
+        return new Promise((resolve, reject) => {
+            fetch(apiService.searchVehicles(term))
+            .then((response) => response.json())
+            .then((responseJson) => {
+                let items = [];
+                responseJson.results.forEach(element => {
+                    items.push(new Vehicle(element.name, element.model, element.vehicle_class, element.manufacturer, 
+                        element.length, element.cost_in_credits, element.crew, element.passengers, element.max_atmosphering_speed, 
+                        element.cargo_capacity, element.consumables, element.films, element.pilots, element.url));
+                });
+                resolve(items);
+            })
+            .catch((error) => {
+                console.error(error);
+                reject(error);
+            });
+        });
+    }
+
+    /* GET single vehicle */
     getVehicle(url) {
         return new Promise((resolve, reject) => {
             fetch(url)
             .then((response) => response.json())
             .then((responseJson) => {
-                
-                let item = new Vehicle(element.name, element.height, element.birth_year);
+                let element = responseJson;
+                let item = new Vehicle(element.name, element.model, element.vehicle_class, element.manufacturer, 
+                    element.length, element.cost_in_credits, element.crew, element.passengers, element.max_atmosphering_speed, 
+                    element.cargo_capacity, element.consumables, element.films, element.pilots, element.url);
 
                 resolve(item);
             })
