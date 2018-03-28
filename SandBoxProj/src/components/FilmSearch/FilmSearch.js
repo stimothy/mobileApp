@@ -137,6 +137,7 @@ export default class MovieSearch extends Component {
             </FlatList>
         );
     }
+    
 
     _renderItem = ({item}) => {
         return (
