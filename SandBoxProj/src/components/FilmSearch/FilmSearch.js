@@ -144,7 +144,7 @@ export default class MovieSearch extends Component {
             <CardItem 
                 style={Styles.cardItem}
                 button 
-                onPress={() => {/*this.onSubmit(item.title)}*/}
+                onPress={() => {/*this.onSubmit(item.title)}*/}}
             >
                 <Text>
                     {item.name}
