@@ -39,7 +39,7 @@ let MovieService = class MovieService {
     }
     
     /* GET movie list */
-    getMovieList(url) {
+    getFilmList(url) {
         return new Promise((resolve, reject) => {
             fetch(url)
             .then((response) => response.json())
@@ -80,7 +80,7 @@ let MovieService = class MovieService {
         });
     }
 
-    getMovie(url) {
+    getFilm(url) {
         return new Promise((resolve, reject) => {
             fetch(url)
             .then((response) => response.json())
@@ -370,7 +370,7 @@ let MovieService = class MovieService {
     }
 
     /* SEARCH vehicle list */
-    getVehicleList(term) {
+    searchVehicles(term) {
         return new Promise((resolve, reject) => {
             fetch(apiService.searchVehicles(term))
             .then((response) => response.json())
