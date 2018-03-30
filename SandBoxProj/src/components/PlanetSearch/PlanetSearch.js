@@ -21,7 +21,7 @@ import starwarsService from '../../services/starwars.service'
 
 import Styles from './style'
 
-export default class PeopleSearch extends Component {
+export default class PlanetSearch extends Component {
     constructor(props) {
         super(props);
         
@@ -76,7 +76,7 @@ export default class PeopleSearch extends Component {
 
     _getList(url)
     {
-        starwarsService.getPersonList(url)
+        starwarsService.getPlanetList(url)
         .then(results => {
             if (results.length != 0)
             {
@@ -96,7 +96,7 @@ export default class PeopleSearch extends Component {
 
     _getSearches(term)
     {
-        starwarsService.searchPersons(term)
+        starwarsService.searchPlanets(term)
         .then(results => {
             this.setState(prevState => {
                 return {
