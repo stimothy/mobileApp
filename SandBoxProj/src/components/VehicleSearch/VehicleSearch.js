@@ -131,7 +131,7 @@ export default class VehicleSearch extends Component {
             <FlatList
                 data={this.state.data}
                 extraData={this.state}
-                keyExtractor={(item, index) => item.id.toString()}
+                //keyExtractor={(item, index) => item.id.toString()}
                 renderItem={(this._renderItem)}
             >
             </FlatList>
@@ -146,7 +146,7 @@ export default class VehicleSearch extends Component {
                 onPress={() => {/*this.onSubmit(item.title)}*/}}
             >
                 <Text>
-                    {item.title}
+                    {item.name}
                 </Text>
             </CardItem>
         );

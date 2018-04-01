@@ -96,8 +96,9 @@ export default class StarshipSearch extends Component {
 
     _getSearches(term)
     {
-        starwarsService.searchStarshipsList(term)
+        starwarsService.searchStarships(term)
         .then(results => {
+            console.log(results);
             this.setState(prevState => {
                 return {
                     data: results,
@@ -131,7 +132,7 @@ export default class StarshipSearch extends Component {
             <FlatList
                 data={this.state.data}
                 extraData={this.state}
-                keyExtractor={(item, index) => item.id.toString()}
+                //keyExtractor={(item, index) => item.id.toString()}
                 renderItem={(this._renderItem)}
             >
             </FlatList>
@@ -146,7 +147,7 @@ export default class StarshipSearch extends Component {
                 onPress={() => {/*this.onSubmit(item.title)}*/}}
             >
                 <Text>
-                    {item.title}
+                    {item.name}
                 </Text>
             </CardItem>
         );

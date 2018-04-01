@@ -131,7 +131,7 @@ export default class PeopleSearch extends Component {
             <FlatList
                 data={this.state.data}
                 extraData={this.state}
-                keyExtractor={(item, index) => item.id.toString()}
+                //keyExtractor={(item, index) => item.mass.toString()}
                 renderItem={(this._renderItem)}
             >
             </FlatList>

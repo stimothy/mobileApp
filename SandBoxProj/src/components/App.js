@@ -9,63 +9,72 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View,
-  Image,
+  View
 } from 'react-native';
+import {
+  NavigationActions,
+  StackNavigator,
+  } from 'react-navigation';
+import  BrowsePage from './BrowsePage/BrowsePage';
+import  FilmSearch  from './FilmSearch/FilmSearch';
+import  PeopleSearch  from './PeopleSearch/PeopleSearch';
+import  PlanetSearch  from './PlanetSearch/PlanetSearch';
+import  SpeciesSearch  from './SpeciesSearch/SpeciesSearch';
+import  StarshipSearch  from './StarshipSearch/StarshipSearch';
+import  VehicleSearch  from './VehicleSearch/VehicleSearch';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
 
-type Props = {};
-export default class App extends Component<Props> {
-  render() {
-    return (
-      <View style={styles.container}>
-      <Image
-        style={{
-          backgroundColor: '#ccc',
-          flex: 1,
-          position: 'absolute',
-          width: '100%',
-          height: '100%',
-          justifyContent: 'center',
-        }}
-        source={require('../resources/galaxy.jpg')}
-      />     
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-        
-      </View>
-    );
-  }
-}
+const RootBrowse = StackNavigator({
+  BrowsePage: {
+    screen: BrowsePage,
+    navigationOptions: {
+      title: 'Browse',
+      headerStyle: {backgroundColor: 'black'},
+      headerTintColor: 'yellow',
+		}
+  },
+  Film: {
+    screen: FilmSearch,
+    navigationOptions: {
+      title: 'Films',
+		}
+  },
+  People:{
+    screen: PeopleSearch,
+    navigationOptions: {
+      title: 'People',
+		}
+  },
+  Planet:{
+    screen: PlanetSearch,
+    navigationOptions: {
+      title: 'Planets',
+		}
+  },
+  Species:{
+    screen: SpeciesSearch,
+    navigationOptions: {
+      title: 'Species',
+		}
+  },
+  Starships:{
+    screen: StarshipSearch,
+    navigationOptions: {
+      title: 'Starships',
+		}
+  },
+  Vehicles:{
+    screen: VehicleSearch,
+    navigationOptions: {
+      title: 'Vehicles',
+		}
+  },
+})
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+    export default class App extends Component{
+      render() {
+        return (
+          <RootBrowse/>
+        );
+      }
+    }

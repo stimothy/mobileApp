@@ -131,7 +131,7 @@ export default class SpeciesSearch extends Component {
             <FlatList
                 data={this.state.data}
                 extraData={this.state}
-                keyExtractor={(item, index) => item.id.toString()}
+                //keyExtractor={(item, index) => item.id.toString()}
                 renderItem={(this._renderItem)}
             >
             </FlatList>

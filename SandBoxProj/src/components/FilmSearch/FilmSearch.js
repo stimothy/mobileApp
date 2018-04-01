@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+    Alert,
     FlatList,
     TextInput,
     KeyboardAvoidingView,
@@ -33,6 +34,7 @@ export default class MovieSearch extends Component {
 
     componentDidMount()
     {
+
         this._getList(this.props.navigation.state.params.url);
     }
 
@@ -76,10 +78,11 @@ export default class MovieSearch extends Component {
 
     _getList(url)
     {
-        starwarsService.getMovieList(url)
+        starwarsService.getFilmList(url)
         .then(results => {
             if (results.length != 0)
             {
+                console.log(results);
                 this.setState(prevState => {
                     return {
                         data: results,
@@ -131,7 +134,7 @@ export default class MovieSearch extends Component {
             <FlatList
                 data={this.state.data}
                 extraData={this.state}
-                keyExtractor={(item, index) => item.name.toString()}
+                keyExtractor={(item, index) => item.title.toString()}
                 renderItem={(this._renderItem)}
             >
             </FlatList>
@@ -147,9 +150,21 @@ export default class MovieSearch extends Component {
                 onPress={() => {/*this.onSubmit(item.title)}*/}}
             >
                 <Text>
-                    {item.name}
+                    {item.title}
                 </Text>
             </CardItem>
         );
+    }
+
+    launchAlert(title, message)
+    {
+      Alert.alert (
+        title,
+        message,
+        [
+          {text: 'Dismiss'},
+        ],
+        {cancelable: false}
+      );
     }
 }
