@@ -149,8 +149,11 @@ export default class MovieSearch extends Component {
                 button 
                 onPress={() => {/*this.onSubmit(item.title)}*/}}
             >
-                <Text>
+                <Text style={styles.text}>
                     {item.title}
+                </Text>
+                <Text style={styles.subText}>
+                    Released: {item.releaseDate}
                 </Text>
             </CardItem>
         );

@@ -7,7 +7,8 @@ export default styles = StyleSheet.create({
     cardItem: {
         alignItems: 'center',
         backgroundColor: '#c9c9c9',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexDirection: 'column',
     },
     inputCard: {
         alignItems: 'stretch',
@@ -25,7 +26,11 @@ export default styles = StyleSheet.create({
     },
     text: {
         textAlign: 'center',
-        fontSize: 20
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
+    subText: {
+        fontSize: 15,
     },
     inputContainer:
 	{

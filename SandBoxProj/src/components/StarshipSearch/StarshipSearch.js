@@ -146,8 +146,11 @@ export default class StarshipSearch extends Component {
                 button 
                 onPress={() => {/*this.onSubmit(item.title)}*/}}
             >
-                <Text>
+                <Text style={styles.text}>
                     {item.name}
+                </Text>
+                <Text style={styles.subText}>
+                    Class: {item.starship_class}
                 </Text>
             </CardItem>
         );

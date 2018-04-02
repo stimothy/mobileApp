@@ -145,8 +145,11 @@ export default class PeopleSearch extends Component {
                 button 
                 onPress={() => {/*this.onSubmit(item.title)}*/}}
             >
-                <Text>
+                <Text style={styles.text}>
                     {item.name}
+                </Text>
+                <Text style={styles.subText}>
+                    Height: {item.height} cm
                 </Text>
             </CardItem>
         );
